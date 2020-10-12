@@ -6,17 +6,15 @@ function App() {
   const [count, setCount] = React.useState(0);
 
   return (
-    <div data-test="component-app" className="App">
+    <div data-test="component-app">
       <h1 data-test="counter-display">
-        The counter is currently&nbsp; 
+        counter is currently
         <span data-test="count">{count}</span>
       </h1>
       <button
         data-test="increment-button"
         onClick={() => setCount(count + 1)}
-      >
-        Increment counter
-      </button>
+      >Increment counter</button>
     </div>
   );
 }
