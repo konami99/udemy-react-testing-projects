@@ -73,10 +73,27 @@ describe('', () => {
   });
 });
 
-test('', () => {
-  const guessWordMock = jest.fn();
-  const wrapper = shallow(<UnconnectedInput guessWord={guessWordMock} />);
-  const component = findByTestAttr(wrapper, "submit-button");
-  component.simulate("click");
-  expect(guessWordMock.mock.calls.length).toBe(1);
-});
+describe('', () => {
+  let guessWordMock;
+  let wrapper;
+  const guessedWord = 'train';
+  beforeEach(() => {
+    guessWordMock = jest.fn();
+    const props = {
+      guessWord: guessWordMock,
+    }
+    wrapper = shallow(<UnconnectedInput {...props} />);
+    wrapper.setState({ currentGuess: guessedWord });
+    const component = findByTestAttr(wrapper, "submit-button");
+    component.simulate("click", { preventDefault() {} });
+  })
+
+  test('', () => {
+    expect(guessWordMock.mock.calls.length).toBe(1);
+  });
+
+  test('', () => {
+    const guessWordArg = guessWordMock.mock.calls[0][0];
+    expect(guessWordArg).toBe(guessedWord);
+  });
+})
