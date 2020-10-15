@@ -96,4 +96,8 @@ describe('', () => {
     const guessWordArg = guessWordMock.mock.calls[0][0];
     expect(guessWordArg).toBe(guessedWord);
   });
+  
+  test('', () => {
+    expect(wrapper.state('currentGuess')).toBe('');
+  });
 })
