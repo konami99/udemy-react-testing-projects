@@ -10,9 +10,12 @@ function Input({ secretWord }) {
       <input data-test="input-box"
         type="text"
         placeholder="enter guess"
+        value={currentGuess}
+        onChange={(event) => setCurrentGuess(event.target.value)}
       />
       <button
-        data-test="submit-button">
+        data-test="submit-button"
+        onClick={(event) => { event.preventDefault(); setCurrentGuess(''); }}>
         Submit
       </button>
     </form>
