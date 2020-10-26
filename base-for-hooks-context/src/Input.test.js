@@ -1,15 +1,36 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-
+import { mount } from 'enzyme';
+import languageContext from './contexts/languageContext';
 import { findByTestAttr, checkProps } from '../test/testUtils';
 import Input from './Input';
 
-const setup = (secretWord='party') => {
-  return shallow(<Input secretWord={secretWord} />);
+const setup = ({language, secretWord}) => {
+  secretWord = secretWord || 'party';
+  language = language || 'en';
+
+  return mount(
+    <languageContext.Provider value={language}>
+      <Input secretWord={secretWord} />
+    </languageContext.Provider>
+  );
 }
 
+describe('', () => {
+  test('', () => {
+    const wrapper = setup({});
+    const submitButtonComponent = findByTestAttr(wrapper, "submit-button");
+    expect(submitButtonComponent.text()).toBe('Submit');
+  });
+
+  test('', () => {
+    const wrapper = setup({ language: 'emoji' });
+    const submitButtonComponent = findByTestAttr(wrapper, "submit-button");
+    expect(submitButtonComponent.text()).toBe('🚀');
+  });
+})
+
 it('', () => {
-  const wrapper = setup();
+  const wrapper = setup({});
   const inputComponent = findByTestAttr(wrapper, 'component-input');
   expect(inputComponent.length).toBe(1);
 })
@@ -26,7 +47,7 @@ describe('', () => {
   beforeEach(() => {
     mockSetCurrentGuess.mockClear();
     React.useState = jest.fn(() => ["", mockSetCurrentGuess]);
-    wrapper = setup();
+    wrapper = setup({});
   })
 
   it('', () => {

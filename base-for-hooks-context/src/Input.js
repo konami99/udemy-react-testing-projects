@@ -1,22 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import languageContext from './contexts/languageContext';
+import stringsModule from './helpers/strings';
 
 function Input({ secretWord }) {
-
+  const language = React.useContext(languageContext);
   const [ currentGuess, setCurrentGuess] = React.useState("");
 
   return <div data-test='component-input'>
     <form className="form-inline">
       <input data-test="input-box"
         type="text"
-        placeholder="enter guess"
+        placeholder={stringsModule.getStringByLanguage(language, 'guessInputPlaceholder')}
         value={currentGuess}
         onChange={(event) => setCurrentGuess(event.target.value)}
       />
       <button
         data-test="submit-button"
         onClick={(event) => { event.preventDefault(); setCurrentGuess(''); }}>
-        Submit
+        {stringsModule.getStringByLanguage(language, 'submit')}
       </button>
     </form>
   </div>
