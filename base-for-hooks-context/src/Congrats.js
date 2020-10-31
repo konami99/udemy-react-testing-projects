@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import languageContext from './contexts/languageContext';
 import stringsModule from './helpers/strings';
+import successContext from './contexts/successContext';
 
 const Congrats = () => {
-  const success = null;
+  const [success] = successContext.useSuccess();
   const language = React.useContext(languageContext);
   if (success) {
     return (
