@@ -1,16 +1,20 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import languageContext from './contexts/languageContext';
+import successContext from './contexts/successContext';
 import { findByTestAttr, checkProps } from '../test/testUtils';
 import Input from './Input';
 
-const setup = ({language, secretWord}) => {
+const setup = ({language, secretWord, success}) => {
   secretWord = secretWord || 'party';
   language = language || 'en';
+  success = success || false;
 
   return mount(
     <languageContext.Provider value={language}>
-      <Input secretWord={secretWord} />
+      <successContext.SuccessProvider value={[success, jest.fn()]}>
+        <Input secretWord={secretWord} />
+      </successContext.SuccessProvider>
     </languageContext.Provider>
   );
 }
@@ -67,3 +71,8 @@ describe('', () => {
     expect(mockSetCurrentGuess).toHaveBeenCalledWith('');
   })
 });
+
+test('', () => {
+  const wrapper = setup({ secretWord: 'party', success: true });
+  expect(wrapper.isEmptyRender()).toBe(true);
+})
